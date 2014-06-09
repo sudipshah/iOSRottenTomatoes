@@ -57,7 +57,7 @@
         [self.tableView reloadData];
         [hud hide:YES];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        //Yet to do this without UIAlertView
+        
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error Retrieving Movies"
                                                             message:[error localizedDescription]
                                                            delegate:nil
