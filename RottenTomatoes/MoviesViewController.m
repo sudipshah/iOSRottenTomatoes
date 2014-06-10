@@ -22,6 +22,7 @@
 @property (strong,nonatomic) UIWindow *dropdown;
 @property (strong,nonatomic) UILabel *label;
 @property (strong,nonatomic) UIWindow *win;
+//@property UITableViewController *tableViewController;
 
 @end
 
@@ -42,15 +43,9 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    //Creating a HUD
-    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:hud];
-    hud.dimBackground = YES;
-    hud.delegate = self; // Need help removing this warning!
-    hud.labelText = @"Loading...";
-    [hud show:YES];
     
-    //Creating a error message
+    
+    //Creating a error message, instead of using UIAlert
     self.dropdown = [[UIWindow alloc] initWithFrame:CGRectMake(0, -20, 320, 20)];
     self.dropdown.backgroundColor = [UIColor redColor];
     self.label = [[UILabel alloc] initWithFrame:self.dropdown.bounds];
@@ -62,35 +57,18 @@
     [self.dropdown makeKeyAndVisible];
     [self.dropdown resignKeyWindow];
     
+//    // Pull to refresh - doesnt work!
+//    _tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
+//    [self addChildViewController:_tableViewController];
+//    
+//    _tableViewController.refreshControl = [[UIRefreshControl alloc] init];
+//    _tableViewController.refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:@"Pull to refresh"];
+//    [_tableViewController.refreshControl addTarget:self action:@selector(refreshMoviesList) forControlEvents:UIControlEventValueChanged];
+//    _tableView = _tableViewController.tableView;
     
-    // Async request from Rotten Tomatoes API
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.rottenTomatoesAPI]];
-
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
-    operation.responseSerializer = [AFJSONResponseSerializer serializer];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
-        self.movies = responseObject[@"movies"];
-        [self.tableView reloadData];
-        [hud hide:YES];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-
-        [self animateHeaderViewWithText:[error localizedDescription]];
-
-//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error Retrieving Movies"
-//                                                            message:[error localizedDescription]
-//                                                           delegate:nil
-//                                                  cancelButtonTitle:@"Ok"
-//                                                  otherButtonTitles:nil];
-//        [alertView show];
-        
-        [hud hide:YES];
-    }];
-    
-    [operation start];
-    
+    // Do async call using AFNetworking
+    [self refreshMoviesList];
     
     // Registering the Cell View
     [self.tableView registerNib:[UINib nibWithNibName:@"MovieCell" bundle:nil] forCellReuseIdentifier:@"MovieCell"];
@@ -123,6 +101,48 @@
     }];
 }
 
+
+-(void) refreshMoviesList {
+    
+    //Creating a HUD
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:hud];
+    hud.dimBackground = YES;
+    hud.delegate = self; // Need help removing this warning!
+    hud.labelText = @"Loading...";
+    [hud show:YES];
+    
+    // Async request from Rotten Tomatoes API
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.rottenTomatoesAPI]];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    operation.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        self.movies = responseObject[@"movies"];
+        [self.tableView reloadData];
+        [hud hide:YES];
+        //[self.tableViewController.refreshControl endRefreshing];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [self animateHeaderViewWithText:[error localizedDescription]];
+        
+        //        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error Retrieving Movies"
+        //                                                            message:[error localizedDescription]
+        //                                                           delegate:nil
+        //                                                  cancelButtonTitle:@"Ok"
+        //                                                  otherButtonTitles:nil];
+        //        [alertView show];
+        
+        [hud hide:YES];
+    }];
+    
+    [operation start];
+    
+}
 
 
 #pragma mark - table view methods
