@@ -22,7 +22,7 @@
 @property (strong,nonatomic) UIWindow *dropdown;
 @property (strong,nonatomic) UILabel *label;
 @property (strong,nonatomic) UIWindow *win;
-//@property UITableViewController *tableViewController;
+@property UIRefreshControl *refreshControl;
 
 @end
 
@@ -57,14 +57,14 @@
     [self.dropdown makeKeyAndVisible];
     [self.dropdown resignKeyWindow];
     
-//    // Pull to refresh - doesnt work!
-//    _tableViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
-//    [self addChildViewController:_tableViewController];
-//    
-//    _tableViewController.refreshControl = [[UIRefreshControl alloc] init];
-//    _tableViewController.refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:@"Pull to refresh"];
-//    [_tableViewController.refreshControl addTarget:self action:@selector(refreshMoviesList) forControlEvents:UIControlEventValueChanged];
-//    _tableView = _tableViewController.tableView;
+    
+    // Pull to refresh
+    UITableViewController *tableViewController = [[UITableViewController alloc] init];
+    tableViewController.tableView = self.tableView;
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refreshMoviesList) forControlEvents:UIControlEventValueChanged];
+    tableViewController.refreshControl = self.refreshControl;
     
     
     // Do async call using AFNetworking
@@ -111,7 +111,6 @@
     hud.delegate = self; // Need help removing this warning!
     hud.labelText = @"Loading...";
     [hud show:YES];
-    
     // Async request from Rotten Tomatoes API
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.rottenTomatoesAPI]];
     
@@ -124,7 +123,7 @@
         self.movies = responseObject[@"movies"];
         [self.tableView reloadData];
         [hud hide:YES];
-        //[self.tableViewController.refreshControl endRefreshing];
+        [self.refreshControl endRefreshing];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -138,6 +137,7 @@
         //        [alertView show];
         
         [hud hide:YES];
+        [self.refreshControl endRefreshing];
     }];
     
     [operation start];
