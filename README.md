@@ -22,7 +22,7 @@ Not Done:
 
 Additional Requirements
 
-Must use Cocoapods. [DONE]
-Asynchronous image downloading must be implemented using the UIImageView category in the AFNetworking library. [DONE]
+- Must use Cocoapods. [DONE]
+- Asynchronous image downloading must be implemented using the UIImageView category in the AFNetworking library. [DONE]
 
 ![video walkthrough](RottenTomatoes.gif)
