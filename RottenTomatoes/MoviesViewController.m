@@ -18,6 +18,11 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *movies;
 
+//header animation properties
+@property (strong,nonatomic) UIWindow *dropdown;
+@property (strong,nonatomic) UILabel *label;
+@property (strong,nonatomic) UIWindow *win;
+
 @end
 
 @implementation MoviesViewController
@@ -37,7 +42,7 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    //Using a hud
+    //Creating a HUD
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:hud];
     hud.dimBackground = YES;
@@ -45,6 +50,20 @@
     hud.labelText = @"Loading...";
     [hud show:YES];
     
+    //Creating a error message
+    self.dropdown = [[UIWindow alloc] initWithFrame:CGRectMake(0, -20, 320, 20)];
+    self.dropdown.backgroundColor = [UIColor redColor];
+    self.label = [[UILabel alloc] initWithFrame:self.dropdown.bounds];
+    self.label.textAlignment = NSTextAlignmentCenter;
+    self.label.font = [UIFont systemFontOfSize:14];
+    self.label.backgroundColor = [UIColor clearColor];
+    [self.dropdown addSubview:self.label];
+    self.dropdown.windowLevel = UIWindowLevelStatusBar;
+    [self.dropdown makeKeyAndVisible];
+    [self.dropdown resignKeyWindow];
+    
+    
+    // Async request from Rotten Tomatoes API
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.rottenTomatoesAPI]];
 
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
@@ -57,28 +76,24 @@
         [self.tableView reloadData];
         [hud hide:YES];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+
+        [self animateHeaderViewWithText:[error localizedDescription]];
+
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error Retrieving Movies"
+//                                                            message:[error localizedDescription]
+//                                                           delegate:nil
+//                                                  cancelButtonTitle:@"Ok"
+//                                                  otherButtonTitles:nil];
+//        [alertView show];
         
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error Retrieving Movies"
-                                                            message:[error localizedDescription]
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles:nil];
-        [alertView show];
+        [hud hide:YES];
     }];
     
     [operation start];
     
     
-//    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-//        id object = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-//        NSLog(@"%@", object);
-//        self.movies = object[@"movies"];
-//        [self.tableView reloadData];
-//
-//    }];
-    
+    // Registering the Cell View
     [self.tableView registerNib:[UINib nibWithNibName:@"MovieCell" bundle:nil] forCellReuseIdentifier:@"MovieCell"];
-    
     
     self.tableView.rowHeight = 110;
 
@@ -90,6 +105,26 @@
     // Dispose of any resources that can be recreated.
 }
 
+//header animation
+-(void)animateHeaderViewWithText:(NSString *) text {
+    self.label.text = text;
+    
+    [UIView animateWithDuration:.5 delay:0 options:0 animations:^{
+        self.dropdown.frame = CGRectMake(0, 0, 320, 20);
+    }completion:^(BOOL finished) {
+        
+        [UIView animateWithDuration:.5 delay:2 options:0 animations:^{
+            self.dropdown.frame = CGRectMake(0, -20, 320, 20);
+        } completion:^(BOOL finished) {
+            
+            //animation finished!!!
+        }];
+        ;
+    }];
+}
+
+
+
 #pragma mark - table view methods
 
 - (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -99,7 +134,7 @@
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    NSLog(@"CellForRowAtIndexPath: %d", indexPath.row);
+    //NSLog(@"CellForRowAtIndexPath: %ld", (long)indexPath.row);
     
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell"];
     
