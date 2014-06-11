@@ -3,6 +3,8 @@ iOSRottenTomatoes
 
 An app like Rotten tomatoes using the Rotten Tomatoes API
 
+Total time taken: 8 hours
+
 User Stories:
 
 - User can view a list of movies from Rotten Tomatoes.  Poster images must be loading asynchronously. [DONE]
