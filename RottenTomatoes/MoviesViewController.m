@@ -230,6 +230,7 @@
     
 }
 
+#pragma mark - Search functions
 
 -(void)filterContentForSearchText:(NSString *)searchText scope:(NSString *)scope {
     
