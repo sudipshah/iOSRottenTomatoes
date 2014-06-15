@@ -43,6 +43,12 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
+    self.searchDisplayController.delegate = self;
+    self.searchDisplayController.searchResultsDataSource = self;
+    self.searchDisplayController.searchResultsDelegate = self;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
             
     //Creating a error message, instead of using UIAlert
     self.dropdown = [[UIWindow alloc] initWithFrame:CGRectMake(0, -20, 320, 20)];
@@ -120,7 +126,7 @@
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
+        //NSLog(@"%@", responseObject);
         self.movies = responseObject[@"movies"];
         [self.tableView reloadData];
         [hud hide:YES];
@@ -152,6 +158,7 @@
     
     if(tableView == self.searchDisplayController.searchResultsTableView) {
         
+        NSLog(@"In Search");
         return self.searchResults.count;
     }
     else {
@@ -165,12 +172,14 @@
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     //NSLog(@"CellForRowAtIndexPath: %ld", (long)indexPath.row);
+    NSLog(@"The movies object: \n %@", self.movies);
     
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell"];
     
     NSDictionary *movie = [[NSDictionary alloc] init];
     
     if (tableView == self.searchDisplayController.searchResultsTableView) {
+        NSLog(@"In Search");
         movie = self.searchResults[indexPath.row];
     }
     else {
@@ -213,6 +222,21 @@
     
 }
 
+
+-(void)filterContentForSearchText:(NSString *)searchText scope:(NSString *)scope {
+    
+    NSLog(@"Trying");
+    NSLog(@"The movies object: \n %@", self.movies);
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"title contains[c] %@", searchText];
+    self.searchResults = [self.movies filteredArrayUsingPredicate:resultPredicate];
+}
+
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    
+    [self filterContentForSearchText:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    
+    return YES;
+}
 
 
 @end
