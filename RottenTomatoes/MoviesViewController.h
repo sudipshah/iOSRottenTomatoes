@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MBProgressHud.h"
 
-@interface MoviesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MBProgressHUDDelegate>
+@interface MoviesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, MBProgressHUDDelegate, UISearchDisplayDelegate>
 
 @property NSString * rottenTomatoesAPI;
 
