@@ -78,7 +78,7 @@
     // Registering the Cell View
     [self.tableView registerNib:[UINib nibWithNibName:@"MovieCell" bundle:nil] forCellReuseIdentifier:@"MovieCell"];
     
-    self.tableView.rowHeight = 110;
+    //self.tableView.rowHeight = 110;
 
 }
 
@@ -158,12 +158,12 @@
     
     if(tableView == self.searchDisplayController.searchResultsTableView) {
         
-        NSLog(@"In Search");
-        return self.searchResults.count;
+        //NSLog(@"In Search");
+        return [self.searchResults count];
     }
     else {
         
-        return self.movies.count;
+        return [self.movies count];
     }
 
     
@@ -172,17 +172,19 @@
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     //NSLog(@"CellForRowAtIndexPath: %ld", (long)indexPath.row);
-    NSLog(@"The movies object: \n %@", self.movies);
+    //NSLog(@"The movies object: \n %@", self.movies);
     
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell"];
     
-    NSDictionary *movie = [[NSDictionary alloc] init];
+    NSDictionary *movie = self.movies[indexPath.row];
     
     if (tableView == self.searchDisplayController.searchResultsTableView) {
         NSLog(@"In Search");
         movie = self.searchResults[indexPath.row];
+        NSLog(@"The movie:%@", movie );
     }
     else {
+        NSLog(@"The movie:%@", self.movies[indexPath.row] );
         movie = self.movies[indexPath.row];
     }
 
@@ -222,13 +224,20 @@
     
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 110;
+    
+}
+
 
 -(void)filterContentForSearchText:(NSString *)searchText scope:(NSString *)scope {
     
-    NSLog(@"Trying");
-    NSLog(@"The movies object: \n %@", self.movies);
-    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"title contains[c] %@", searchText];
+    //NSLog(@"Trying");
+    //NSLog(@"The movies object: \n %@", self.movies);
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"title beginswith[c] %@", searchText];
     self.searchResults = [self.movies filteredArrayUsingPredicate:resultPredicate];
+    NSLog(@" Search Results %@", self.searchResults);
 }
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
