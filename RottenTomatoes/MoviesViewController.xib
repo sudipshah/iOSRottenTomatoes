@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MoviesViewController">
             <connections>
+                <outlet property="searchDisplayController" destination="QXS-PD-BQI" id="Eqd-Vl-fQX"/>
                 <outlet property="tableView" destination="5cT-Ui-Geh" id="kua-Ei-aYI"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -16,14 +17,35 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="5cT-Ui-Geh">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="526"/>
+                    <rect key="frame" x="0.0" y="44" width="320" height="526"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
+                <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EBb-hj-gwi">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <scopeButtonTitles>
+                        <string>Title</string>
+                        <string>Title</string>
+                    </scopeButtonTitles>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="DQI-dP-dBf"/>
+                    </connections>
+                </searchBar>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
+        <searchDisplayController id="QXS-PD-BQI">
+            <connections>
+                <outlet property="delegate" destination="-1" id="vkc-Su-LS1"/>
+                <outlet property="searchBar" destination="EBb-hj-gwi" id="Hrd-sk-nsH"/>
+                <outlet property="searchContentsController" destination="-1" id="P2C-IL-c8h"/>
+                <outlet property="searchResultsDataSource" destination="-1" id="Di1-OI-EEP"/>
+                <outlet property="searchResultsDelegate" destination="-1" id="H2R-pZ-hjJ"/>
+            </connections>
+        </searchDisplayController>
     </objects>
 </document>

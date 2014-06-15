@@ -12,12 +12,13 @@
 @interface MovieDetailsController ()
 
 @property (strong, nonatomic) IBOutlet UIImageView *posterBigImage;
-@property (strong, nonatomic) IBOutlet UITextView *movieDescriptionText;
 
+@property (weak, nonatomic) IBOutlet UILabel *movieDescriptionLabel;
 
 @end
 
 @implementation MovieDetailsController
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,12 +32,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //NSLog(@"Something happened");
-    //NSLog(@"Description: %@", self.movieDescription);
-    self.movieDescriptionText.delegate = self;
-    [self.posterBigImage setImageWithURL:self.imageURL];
-    [self.movieDescriptionText setText:self.movieDescription];
     
+    [self.posterBigImage setImageWithURL:self.imageURL];
+    
+    NSString * text = [[NSString alloc] initWithFormat:@" \n %@ \n \n %@ \n ", self.movieTitle, self.movieDescription];
+    
+    [self.movieDescriptionLabel setText:text];
+    
+    [self.movieDescriptionLabel sizeToFit];
+
 }
 
 - (void)didReceiveMemoryWarning

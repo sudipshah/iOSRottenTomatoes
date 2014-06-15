@@ -11,12 +11,13 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import <AFNetworking/AFNetworking.h>
 #import "MovieDetailsController.h"
-#import "MBProgressHud.h"
+
 
 @interface MoviesViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSArray *movies;
+@property (strong, nonatomic) NSArray *searchResults;
 
 //header animation properties
 @property (strong,nonatomic) UIWindow *dropdown;
@@ -42,9 +43,7 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
-    
-    
+            
     //Creating a error message, instead of using UIAlert
     self.dropdown = [[UIWindow alloc] initWithFrame:CGRectMake(0, -20, 320, 20)];
     self.dropdown.backgroundColor = [UIColor redColor];
@@ -77,6 +76,7 @@
 
 }
 
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -108,9 +108,10 @@
     MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
     [self.view addSubview:hud];
     hud.dimBackground = YES;
-    hud.delegate = self; // Need help removing this warning!
+    hud.delegate = self;
     hud.labelText = @"Loading...";
     [hud show:YES];
+    
     // Async request from Rotten Tomatoes API
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.rottenTomatoesAPI]];
     
@@ -148,7 +149,16 @@
 #pragma mark - table view methods
 
 - (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.movies.count;
+    
+    if(tableView == self.searchDisplayController.searchResultsTableView) {
+        
+        return self.searchResults.count;
+    }
+    else {
+        
+        return self.movies.count;
+    }
+
     
 }
 
@@ -158,7 +168,15 @@
     
     MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell"];
     
-    NSDictionary *movie = self.movies[indexPath.row];
+    NSDictionary *movie = [[NSDictionary alloc] init];
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        movie = self.searchResults[indexPath.row];
+    }
+    else {
+        movie = self.movies[indexPath.row];
+    }
+
     //NSLog(@"%@", movie);
     cell.movieTitleLabel.text = movie[@"title"];
     cell.synopsisLabel.text = movie[@"synopsis"];
@@ -182,6 +200,7 @@
     mdc.title = movie[@"title"];
     
     mdc.movieDescription = movie[@"synopsis"];
+    mdc.movieTitle = movie[@"title"];
     //[mdc.movieDescriptionText setText:movie[@"synopsis"]];
     
     NSString *imageURLString = movie[@"posters"][@"original"];

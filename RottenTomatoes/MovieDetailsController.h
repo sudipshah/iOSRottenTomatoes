@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MovieDetailsController : UIViewController <UITextViewDelegate>
+@interface MovieDetailsController : UIViewController <UIScrollViewDelegate>
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property NSURL * imageURL;
 @property NSString *movieDescription;
+@property NSString *movieTitle;
 
 @end

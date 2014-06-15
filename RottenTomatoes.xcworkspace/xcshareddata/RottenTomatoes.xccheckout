@@ -5,13 +5,15 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>3131F88E-6B76-4D3F-8B4F-0FBBEDA27ED5</string>
+	<string>2F0A0E7B-5739-4BDB-B19A-86063BFF5178</string>
 	<key>IDESourceControlProjectName</key>
 	<string>RottenTomatoes</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>8C0B7F94-7E03-49B7-A8A1-582546EB8D60</key>
 		<string>https://github.com/sudipshah/iOSProgramming.git</string>
+		<key>BF0E3C13-41D4-4670-B5C8-2AA4818EE7BD</key>
+		<string>https://github.com/sudipshah/iOSRottenTomatoes.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>RottenTomatoes/RottenTomatoes.xcworkspace</string>
@@ -19,9 +21,11 @@
 	<dict>
 		<key>8C0B7F94-7E03-49B7-A8A1-582546EB8D60</key>
 		<string>../..</string>
+		<key>BF0E3C13-41D4-4670-B5C8-2AA4818EE7BD</key>
+		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/sudipshah/iOSProgramming.git</string>
+	<string>https://github.com/sudipshah/iOSRottenTomatoes.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
@@ -35,6 +39,14 @@
 			<string>8C0B7F94-7E03-49B7-A8A1-582546EB8D60</string>
 			<key>IDESourceControlWCCName</key>
 			<string>iOSProgramming</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>BF0E3C13-41D4-4670-B5C8-2AA4818EE7BD</string>
+			<key>IDESourceControlWCCName</key>
+			<string>RottenTomatoes</string>
 		</dict>
 	</array>
 </dict>

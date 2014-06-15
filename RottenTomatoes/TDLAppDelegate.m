@@ -25,6 +25,8 @@
     
     boxOfficeNavController.tabBarItem.title = @"Box Office";
     
+
+    boxOfficeNavController.tabBarItem.image = [UIImage imageNamed:@"boxOffice"];
     
     
     // Create controller for Top DVD Rentals
@@ -33,6 +35,7 @@
     topDVDController.rottenTomatoesAPI = @"http://api.rottentomatoes.com/api/public/v1.0/lists/dvds/top_rentals.json?apikey=3dx3pgwhbgynhze6jvredten";
     UINavigationController * topDVDNavController = [[UINavigationController alloc] initWithRootViewController:topDVDController];
     topDVDNavController.tabBarItem.title = @"Top DVDs";
+    topDVDNavController.tabBarItem.image = [UIImage imageNamed:@"topDVD"];
     
     // Create the tab controller and assign the two controllers
     UITabBarController *tabBarController = [[UITabBarController alloc]init];
