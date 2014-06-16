@@ -3,29 +3,21 @@ iOSRottenTomatoes
 
 An app like Rotten tomatoes using the Rotten Tomatoes API
 
-Total time taken: 8 hours
+Total time taken: 10 hours
 
-User Stories:
+User Stories Done:
 
-- User can view a list of movies from Rotten Tomatoes.  Poster images must be loading asynchronously. [DONE]
-- User can view movie details by tapping on a cell [DONE]
-- User sees loading state while waiting for movies API.  You can use one of the 3rd party libraries here. [DONE]
-- User sees error message when there's a networking error.  You may not use UIAlertView to display the error.  See this screenshot for what the error message should look like: network error screenshot. [DONE]
-- Add a tab bar for Box Office and DVD. (optional) [DONE]
-- User can pull to refresh the movie list. [DONE]
+- User can view a list of movies from Rotten Tomatoes.  Poster images must be loading asynchronously. 
+- User can view movie details by tapping on a cell 
+- User sees loading state while waiting for movies API.  You can use one of the 3rd party libraries here. 
+- User sees error message when there's a networking error.  You may not use UIAlertView to display the error.  See this screenshot for what the error message should look like: network error screenshot. 
+- User can pull to refresh the movie list. 
+- Add a tab bar for Box Office and DVD. (optional) 
+- Add a search bar. (optional) - Throws an exception :( 
 
-Not Done:
+Additional Requirements Done:
 
-- All images fade in (optional) 
-- For the large poster, load the low-res image first, switch to high-res when complete (optional)
-- All images should be cached in memory and disk. In other words, images load immediately upon cold start (optional).
-- Customize the highlight and selection effect of the cell. (optional)
-- Customize the navigation bar. (optional)
-- Add a search bar. (optional)
-
-Additional Requirements
-
-- Must use Cocoapods. [DONE]
-- Asynchronous image downloading must be implemented using the UIImageView category in the AFNetworking library. [DONE]
+- Must use Cocoapods.
+- Asynchronous image downloading must be implemented using the UIImageView category in the AFNetworking library. 
 
 ![video walkthrough](RottenTomatoes.gif)
