@@ -14,6 +14,7 @@ User Stories Done:
 - User can pull to refresh the movie list. 
 - Add a tab bar for Box Office and DVD. (optional) 
 - Add a search bar. (optional)
+- All images fade in (optional)
 
 Additional Requirements Done:
 
