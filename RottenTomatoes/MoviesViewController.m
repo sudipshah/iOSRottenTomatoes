@@ -126,6 +126,7 @@
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //NSLog(@"%@", responseObject);
         self.movies = responseObject[@"movies"];
         [self.tableView reloadData];
         [hud hide:YES];
@@ -178,9 +179,12 @@
     NSDictionary *movie = self.movies[indexPath.row];
     
     if (tableView == self.searchDisplayController.searchResultsTableView) {
+        NSLog(@"In Search");
         movie = self.searchResults[indexPath.row];
+        NSLog(@"The movie:%@", movie );
     }
     else {
+        NSLog(@"The movie:%@", self.movies[indexPath.row] );
         movie = self.movies[indexPath.row];
     }
 
@@ -204,6 +208,14 @@
     MovieDetailsController *mdc = [[MovieDetailsController alloc] initWithNibName:@"MovieDetailsController" bundle:nil];
     
     NSDictionary *movie = self.movies[indexPath.row];
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        movie = self.searchResults[indexPath.row];
+    }
+    else {
+        movie = self.movies[indexPath.row];
+    }
+    
     mdc.title = movie[@"title"];
     
     mdc.movieDescription = movie[@"synopsis"];
@@ -229,6 +241,7 @@
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
     
+    NSLog(@"Search String: %@", searchString);
     NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"title beginswith[c] %@", searchString];
     self.searchResults = [self.movies filteredArrayUsingPredicate:resultPredicate];
     
