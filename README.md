@@ -13,7 +13,7 @@ User Stories Done:
 - User sees error message when there's a networking error.  You may not use UIAlertView to display the error.  See this screenshot for what the error message should look like: network error screenshot. 
 - User can pull to refresh the movie list. 
 - Add a tab bar for Box Office and DVD. (optional) 
-- Add a search bar. (optional) - Throws an exception :( 
+- Add a search bar. (optional)
 
 Additional Requirements Done:
 
