@@ -47,7 +47,7 @@
     self.searchDisplayController.delegate = self;
     self.searchDisplayController.searchResultsDataSource = self;
     self.searchDisplayController.searchResultsDelegate = self;
-    self.edgesForExtendedLayout = UIRectEdgeNone;   
+    self.edgesForExtendedLayout = UIRectEdgeNone;
 
             
     //Creating a error message, instead of using UIAlert
@@ -126,7 +126,6 @@
     operation.responseSerializer = [AFJSONResponseSerializer serializer];
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //NSLog(@"%@", responseObject);
         self.movies = responseObject[@"movies"];
         [self.tableView reloadData];
         [hud hide:YES];
@@ -174,17 +173,14 @@
     //NSLog(@"CellForRowAtIndexPath: %ld", (long)indexPath.row);
     //NSLog(@"The movies object: \n %@", self.movies);
     
-    MovieCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell"];
+    MovieCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"MovieCell"];
     
     NSDictionary *movie = self.movies[indexPath.row];
     
     if (tableView == self.searchDisplayController.searchResultsTableView) {
-        NSLog(@"In Search");
         movie = self.searchResults[indexPath.row];
-        NSLog(@"The movie:%@", movie );
     }
     else {
-        NSLog(@"The movie:%@", self.movies[indexPath.row] );
         movie = self.movies[indexPath.row];
     }
 
@@ -230,20 +226,11 @@
     
 }
 
-#pragma mark - Search functions
-
--(void)filterContentForSearchText:(NSString *)searchText scope:(NSString *)scope {
-    
-    //NSLog(@"Trying");
-    //NSLog(@"The movies object: \n %@", self.movies);
-    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"title beginswith[c] %@", searchText];
-    self.searchResults = [self.movies filteredArrayUsingPredicate:resultPredicate];
-    NSLog(@" Search Results %@", self.searchResults);
-}
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
     
-    [self filterContentForSearchText:searchString scope:[[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@"title beginswith[c] %@", searchString];
+    self.searchResults = [self.movies filteredArrayUsingPredicate:resultPredicate];
     
     return YES;
 }

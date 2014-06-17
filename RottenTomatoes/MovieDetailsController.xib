@@ -21,22 +21,18 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WvQ-Fa-AhX">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WvQ-Fa-AhX">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lAK-dW-thQ">
+                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lAK-dW-thQ">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="925"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="400" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="Rlo-tM-5bA">
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" fixedFrame="YES" placeholderIntrinsicWidth="300" placeholderIntrinsicHeight="400" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="none" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="Rlo-tM-5bA">
                                     <rect key="frame" x="0.0" y="287" width="320" height="400"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="320" id="S9m-1z-CT3"/>
-                                        <constraint firstAttribute="height" priority="500" constant="400" id="kWq-fH-k1V"/>
-                                    </constraints>
                                     <attributedString key="attributedText">
                                         <fragment content="Description">
                                             <attributes>
@@ -50,30 +46,12 @@
                                 </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstItem="Rlo-tM-5bA" firstAttribute="top" secondItem="lAK-dW-thQ" secondAttribute="top" constant="287" id="HPa-2I-P9n"/>
-                                <constraint firstAttribute="width" constant="320" id="Zbw-g0-sZf"/>
-                                <constraint firstAttribute="height" constant="925" id="duL-5H-ZGm"/>
-                                <constraint firstItem="Rlo-tM-5bA" firstAttribute="leading" secondItem="lAK-dW-thQ" secondAttribute="leading" id="sJU-Wx-pEX"/>
-                            </constraints>
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstItem="lAK-dW-thQ" firstAttribute="leading" secondItem="WvQ-Fa-AhX" secondAttribute="leading" id="5zS-0x-Uqh"/>
-                        <constraint firstAttribute="trailing" secondItem="lAK-dW-thQ" secondAttribute="trailing" id="GjO-dU-sX6"/>
-                        <constraint firstAttribute="bottom" secondItem="lAK-dW-thQ" secondAttribute="bottom" id="ZhP-4P-Atj"/>
-                        <constraint firstItem="lAK-dW-thQ" firstAttribute="top" secondItem="WvQ-Fa-AhX" secondAttribute="top" id="cs0-DS-uZS"/>
-                    </constraints>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstItem="WvQ-Fa-AhX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="FMw-Ht-6lB"/>
-                <constraint firstItem="WvQ-Fa-AhX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Yw4-LO-ERz"/>
-                <constraint firstAttribute="trailing" secondItem="WvQ-Fa-AhX" secondAttribute="trailing" id="cFR-Ez-h3G"/>
-                <constraint firstAttribute="bottom" secondItem="WvQ-Fa-AhX" secondAttribute="bottom" id="if4-1W-NWv"/>
-            </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
