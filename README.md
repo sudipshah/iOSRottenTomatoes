@@ -3,7 +3,7 @@ iOSRottenTomatoes
 
 An app like Rotten tomatoes using the Rotten Tomatoes API
 
-Total time taken: 10 hours
+Total time taken: 12 hours
 
 User Stories Done:
 
