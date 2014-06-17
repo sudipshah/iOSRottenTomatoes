@@ -33,7 +33,14 @@
 {
     [super viewDidLoad];
     
-    [self.posterBigImage setImageWithURL:self.imageURL];
+    //[self.posterBigImage setImageWithURL:self.imageURL placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
+    [self.posterBigImage setImageWithURLRequest:[NSURLRequest requestWithURL:self.imageURL] placeholderImage:[UIImage imageNamed:@"placeholderImage"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        [UIView transitionWithView:self.posterBigImage duration:0.3f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+            self.posterBigImage.image = image;
+        } completion:nil];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+        
+    }];
     
     NSString * text = [[NSString alloc] initWithFormat:@" \n %@ \n \n %@ \n ", self.movieTitle, self.movieDescription];
     

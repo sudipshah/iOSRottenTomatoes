@@ -195,7 +195,14 @@
     NSString *imageURLString = movie[@"posters"][@"thumbnail"];
     NSURL *imageURL = [NSURL URLWithString:imageURLString];
     
-    [cell.posterView setImageWithURL:imageURL];
+    //[cell.posterView setImageWithURL:imageURL placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
+    [cell.posterView setImageWithURLRequest:[NSURLRequest requestWithURL:imageURL] placeholderImage:[UIImage imageNamed:@"placeholderImage"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        [UIView transitionWithView:cell.posterView duration:0.3f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+            cell.posterView.image = image;
+        } completion:nil];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+    
+    }];
     
     
     return cell;
